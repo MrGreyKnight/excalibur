@@ -5,13 +5,27 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
+    string source = "";
+    string output = "";
+
     for (int i = 0; i < argc; i++ ){
-        cout << argv[i] << endl; 
         if (std::string_view(argv[i]) == "--source"){
-            cout << "source found at index " << i << endl;
+            source = argv[i+1];
         }
         else if (std::string_view(argv[i]) == "--output"){
-            cout << " output found at index" << i << endl;
+            output = argv[i+1];
         }
+    }
+    if (source != "") {
+        cout << "This is the source..." << source << endl;
+    } else {
+        cout << "source is undefined" << endl;
+        return 0; 
+    }
+    if (output != "") {
+        cout << "This is the output..." << output << endl;
+    } else {
+        cout << "output is undefined" << endl;
+        return 0; 
     }
 }
