@@ -1,12 +1,21 @@
 // .\escalibur --source "H:\\DCIM" --output "C:\\user\files\images\"
 
 #include <iostream>
+#include <sys/stat.h>
 using namespace std;
-
+int checkDirectory(char* directory) 
+{
+    struct stat metadata;
+    if (stat(directory, &metadata) == 0)
+    {
+        return 1;
+    }
+    return 0; 
+}
 int main(int argc, char **argv)
 {
-    string source = "";
-    string output = "";
+    char* source;
+    char* output;
 
     for (int i = 0; i < argc; i++)
     {
@@ -37,4 +46,11 @@ int main(int argc, char **argv)
         cout << "Output destination required. Please use the --output argument" << endl;
         return 0;
     }
+    if (checkDirectory(source) != 1){
+        cout << "invalid source directory";
+    }
+    if (checkDirectory(output) != 1 ){
+        cout << "invalid output directory";
+    }
 }
+
