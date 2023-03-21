@@ -8,9 +8,13 @@ int checkDirectory(char* directory)
     struct stat metadata;
     if (stat(directory, &metadata) == 0)
     {
-        return 1;
+        if(metadata.st_mode&S_IFDIR)
+        {
+            cout<< "Directory found" << endl;
+            return 1; 
+        }
     }
-    return 0; 
+    return 0;    
 }
 int main(int argc, char **argv)
 {
@@ -46,11 +50,16 @@ int main(int argc, char **argv)
         cout << "Output destination required. Please use the --output argument" << endl;
         return 0;
     }
+    if (strcmp(source, output)== 0){
+        cout <<"Source and output directories cannot be same."<< endl;
+        return 0;
+    }
     if (checkDirectory(source) != 1){
         cout << "invalid source directory";
+        return 0;
     }
     if (checkDirectory(output) != 1 ){
         cout << "invalid output directory";
+        return 0;
     }
 }
-
