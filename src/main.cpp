@@ -1,8 +1,10 @@
-// .\escalibur --source "H:\\DCIM" --output "C:\\user\files\images\"
+// .\excalibur.exe --source "G:\DCIM\105MSDCF" --output "G:\DCIM\105MSDCF"
 
 #include <iostream>
+#include <filesystem>
 #include <sys/stat.h>
 using namespace std;
+namespace fs = std::filesystem;
 int checkDirectory(char* directory) // defines the function for checking the directory. 
 {
     struct stat metadata; // defining variable called metadata. variable is a struct type. 
@@ -68,5 +70,16 @@ int main(int argc, char **argv) // defines the main function of the program
     }
     if (inputValidation(source,output) == 0){
         return 0;
+    }
+    for (auto const& dir_entry : fs::recursive_directory_iterator(source))
+    {
+        cout << dir_entry << endl;
+        std::filesystem::path file = dir_entry;
+        std::string file_str = file.string();
+        const char * file_ptr = file_str.c_str();  
+        struct stat file_metadata;
+        stat(file_ptr, &file_metadata);
+        cout<< file_metadata.st_atime << endl;
+        
     }
 }
