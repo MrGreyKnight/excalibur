@@ -22,7 +22,7 @@ int inputValidation(char* source, char* output) // defines the funtion of input 
 {
     if (source != "") // if source is not empty
     {
-        cout << "Source destination: " << source << endl; // prints the contents of the source variable
+        cout << "Source destination: " << &source << endl; // prints the contents of the source variable
     }
     else
     {
@@ -31,7 +31,7 @@ int inputValidation(char* source, char* output) // defines the funtion of input 
     }
     if (output != "")
     {
-        cout << "Output destination: " << output << endl; // prints the contents of the output variable
+        cout << "Output destination: " << &output << endl; // prints the contents of the output variable
     }
     else
     {
@@ -80,6 +80,8 @@ int main(int argc, char **argv) // defines the main function of the program
         struct stat file_metadata;
         stat(file_ptr, &file_metadata);
         cout<< file_metadata.st_atime << endl;
-        
+        time_t t =  file_metadata.st_atime;
+        cout << ctime(&t) << endl;
+
     }
 }
